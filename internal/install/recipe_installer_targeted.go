@@ -132,9 +132,10 @@ func (i *RecipeInstaller) targetedInstall(ctx context.Context, m *types.Discover
 
 	log.Print("\n\n **************************** \n")
 	log.Printf("\n recipes:  %+v \n", len(recipes))
-	log.Print("\n **************************** \n\n")
 
 	for _, r := range recipes {
+		log.Printf("\n recipe after:  %+v \n", r.Name)
+
 		if r.Name == types.InfraAgentRecipeName {
 			continue
 		}
