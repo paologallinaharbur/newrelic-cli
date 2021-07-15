@@ -2,38 +2,25 @@ package utils
 
 import (
 	"context"
-	"io/ioutil"
-	"net/http"
 )
 
+// TODO: RENAME TO ValidationService
 // Should ValidationClient live in it's own file (e.g. validation_client.go)
-type ValidationClient struct{}
-
-// TODO: move to interfaces.go
-type HTTPClient interface {
-	Get(ctx context.Context, url string) ([]byte, error)
+type ValidationClient struct {
+	httpClient HTTPClientInterface
 }
 
 func NewValidationClient() *ValidationClient {
-	return &ValidationClient{}
+	return &ValidationClient{
+		httpClient: NewHTTPClient(),
+	}
 }
 
 func (c *ValidationClient) Get(ctx context.Context, url string) ([]byte, error) {
-	httpClient := &http.Client{}
-
-	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	resp, err := c.httpClient.Get(ctx, url)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := httpClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	data, _ := ioutil.ReadAll(resp.Body)
-
-	return data, nil
+	return resp, nil
 }

@@ -12,7 +12,7 @@ import (
 
 // AgentValidator polls NRDB to assert data is being reported for the given query.
 type AgentValidator struct {
-	httpClient        utils.HTTPClient
+	httpClient        utils.HTTPClientInterface
 	validationURL     string
 	MaxAttempts       int
 	Interval          time.Duration
@@ -25,7 +25,7 @@ type ValidationResponse struct {
 }
 
 // NewAgentValidator returns a new instance of AgentValidator.
-func NewAgentValidator(c utils.HTTPClient, validationURL string) *AgentValidator {
+func NewAgentValidator(c utils.HTTPClientInterface, validationURL string) *AgentValidator {
 	v := AgentValidator{
 		MaxAttempts:       3,
 		Interval:          5 * time.Second,
