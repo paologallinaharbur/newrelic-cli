@@ -17,3 +17,10 @@ func TestVersion(t *testing.T) {
 	testcobra.CheckCobraRequiredFlags(t, cmdVersion, []string{})
 	testcobra.CheckCobraCommandAliases(t, cmdVersion, []string{})
 }
+
+func TestUpgrade(t *testing.T) {
+	assert.Equal(t, "upgrade", cmdUpgrade.Name())
+
+	testcobra.CheckCobraMetadata(t, cmdUpgrade)
+	testcobra.CheckCobraRequiredFlags(t, cmdUpgrade, []string{})
+}

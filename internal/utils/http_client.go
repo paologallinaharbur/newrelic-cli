@@ -4,6 +4,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type HTTPClientInterface interface {
@@ -23,11 +25,13 @@ func NewHTTPClient() *HTTPClient {
 func (c *HTTPClient) Get(ctx context.Context, url string) ([]byte, error) {
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
+		log.Debug(err.Error())
 		return nil, err
 	}
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
+		log.Debug(err.Error())
 		return nil, err
 	}
 
