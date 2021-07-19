@@ -244,7 +244,7 @@ if treatment == "on" {
 
 // Retrieve multiple treatments given a list of experiments (splits)
 splits := []string{split.VirtuosoCLITest, split.VirtuosoCliTest2}
-treatments := split.SplitService.GetAll(splits)
+treatments := split.Service.GetAll(splits)
 for split, treatment := range treatments {
     fmt.Printf("Treatment for feature %s is %s\n", split, treatment)
     // Evaluate treatments
