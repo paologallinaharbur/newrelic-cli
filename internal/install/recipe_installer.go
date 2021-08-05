@@ -154,22 +154,22 @@ func (i *RecipeInstaller) Install() error {
 
 	// If not in a dev environemt, check to see if
 	// the installed CLI is up to date.
-	if !cli.IsDevEnvironment() {
-		latestReleaseVersion, vErr := cli.GetLatestReleaseVersion(ctx)
-		if vErr != nil {
-			return vErr
-		}
-
-		isLatestCLIVersion, vErr := cli.IsLatestVersion(ctx, latestReleaseVersion)
-		if vErr != nil {
-			return vErr
-		}
-
-		if !isLatestCLIVersion {
-			cli.PrintUpdateCLIMessage(latestReleaseVersion)
-			return nil
-		}
+	// if !cli.IsDevEnvironment() {
+	latestReleaseVersion, vErr := cli.GetLatestReleaseVersion(ctx)
+	if vErr != nil {
+		return vErr
 	}
+
+	isLatestCLIVersion, vErr := cli.IsLatestVersion(ctx, latestReleaseVersion)
+	if vErr != nil {
+		return vErr
+	}
+
+	if !isLatestCLIVersion {
+		cli.PrintUpdateCLIMessage(latestReleaseVersion)
+		return nil
+	}
+	// }
 
 	go func(ctx context.Context) {
 		errChan <- i.install(ctx)

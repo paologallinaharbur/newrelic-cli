@@ -56,10 +56,6 @@ func IsLatestVersion(ctx context.Context, latestVersion string) (bool, error) {
 	}
 
 	lv, err := semver.NewVersion(latestVersion)
-
-	log.Printf("\n latest version prerelease:     %+v \n", lv.Prerelease())
-	log.Printf("\n installed version prerelease:  %+v \n", installedVersion.Prerelease())
-
 	if err != nil {
 		return false, fmt.Errorf("error parsing version to check %s: %s", latestVersion, err.Error())
 	}
